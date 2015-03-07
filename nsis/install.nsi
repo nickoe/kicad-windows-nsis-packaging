@@ -134,7 +134,7 @@ Section $(TITLE_SEC_MAIN) SEC01
   SetOutPath "$INSTDIR\lib"
   File /r "..\lib\*"
   SetOutPath "$INSTDIR\share\kicad\internat"
-  File /nofatal /r "..\share\kicad\internat\*"
+  File /nonfatal /r "..\share\kicad\internat\*"
 SectionEnd
 
 Section $(TITLE_SEC_SCHLIB) SEC02
@@ -265,6 +265,9 @@ Section Uninstall
   RMDir /r "$INSTDIR\share\kicad\demos"
   RMDir /r "$INSTDIR\share\doc\kicad\tutorials"
   RMDir /r "$INSTDIR\share\doc\kicad\help"
+  RMDir /r "$INSTDIR\share\doc\kicad"
+  RMDir /r "$INSTDIR\share\doc"
+  RMDir /r "$INSTDIR\share"
   RMDir /r "$INSTDIR\wings3d"
   ;don't remove $INSTDIR recursively just in case the user has installed it in c:\ or
   ;c:\program files as this would attempt to delete a lot more than just this package
