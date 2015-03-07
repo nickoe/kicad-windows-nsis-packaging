@@ -1,0 +1,25 @@
+KiCad windows packing scripts with NSIS
+=======================================
+
+This is a collection of stuff used for packing KiCad for windows by building in
+the MSYS2 environment and then package the bits with the NSIS installer. This is
+magic or something... I dunno, I am very bad at writing random stuff.
+
+The current workflow is as follows:
+1. Install MSYS2 and configure the environment (update and install git, and
+   toolchains)
+2. Clone the MINGW packages [3]
+3. Go to the kicad package
+4. Then do: makepkg-mingw -s (-s option installs depends)
+5. Now configure the variables in the copydlls.sh script
+6. Now RUN!
+7. You now got a funky exe for the arch you specified.
+
+The NSIS installer script has been tested with NSIS 3.0.b1. Also the nsis folder
+is a fork of what was in the KiCad offical repo.
+
+I consider this repo as a staging area.
+
+[1] http://sourceforge.net/projects/msys2/
+[2] http://nsis.sourceforge.net/Main_Page
+[3] https://github.com/Alexpux/MINGW-packages.git
