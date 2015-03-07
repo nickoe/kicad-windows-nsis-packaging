@@ -28,10 +28,10 @@ fi
 
 
 BINDIR=/$MINGWBIN/bin
-PKGDIR="/home/nosterga/MINGW-packages/mingw-w64-kicad-git/pkg/mingw-w64-$ARCH-kicad-git/$MINGWBIN/"
-TARGETDIR=/home/nosterga/out
-NSISPATH=~/nsis
-MAKENSIS=~/NSIS-bin/Bin/makensis.exe
+PKGDIR="$HOME/MINGW-packages/mingw-w64-kicad-git/pkg/mingw-w64-$ARCH-kicad-git/$MINGWBIN/"
+TARGETDIR="$HOME/out"
+NSISPATH="$HOME/kicad-windows-nsis-packaging/nsis"
+MAKENSIS="$HOME/NSIS-bin/Bin/makensis.exe"
 
 echo Output will be in $TARGETDIR
 if [ ! -e $TARGETDIR ]; then
@@ -79,6 +79,7 @@ cp -r $BINDIR/../include/python2.7 $TARGETDIR/include
 
 echo Copying lib/python2.7...
 cp -r $BINDIR/../lib/python2.7 $TARGETDIR/lib
+rm -f $TARGETDIR/lib/python2.7/config/libpython2.7.dll.a # Not really needed
 
 echo Copying python.exe...
 cp $BINDIR/python.exe $TARGETDIR/bin
