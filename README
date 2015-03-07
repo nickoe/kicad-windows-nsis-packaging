@@ -18,6 +18,12 @@ The current workflow is as follows:
 The NSIS installer script has been tested with NSIS 3.0.b1. Also the nsis folder
 is a fork of what was in the KiCad offical repo.
 
+I expect to write the packaing scripts inside MSYS2, such that one should only
+call one script to make a installer. A script can for example be invoked like
+below from cmd.exe.
+
+c:\msys64\usr\bin\bash.exe --login -i -c "$HOME/kicad-windows-nsis-packaging/copydlls.sh"
+
 I consider this repo as a staging area.
 
 [1] http://sourceforge.net/projects/msys2/
