@@ -134,7 +134,7 @@ Section $(TITLE_SEC_MAIN) SEC01
   SetOutPath "$INSTDIR\lib"
   File /r "..\lib\*"
   SetOutPath "$INSTDIR\share\kicad\internat"
-  File /r "..\share\kicad\internat\*"
+  File /nofatal /r "..\share\kicad\internat\*"
 SectionEnd
 
 Section $(TITLE_SEC_SCHLIB) SEC02
