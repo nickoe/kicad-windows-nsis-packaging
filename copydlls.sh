@@ -90,7 +90,7 @@ cp -r $NSISPATH $TARGETDIR
 cd $TARGETDIR/nsis
 pwd
 echo "This is still a work in progress... but GPL..." > ../COPYRIGHT.txt 
-$MAKENSIS install.nsi
+$MAKENSIS //DOPTION_STRING="native-mingw-with-scripting-$ARCH" install.nsi
 
 
 
