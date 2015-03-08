@@ -47,9 +47,15 @@
 CRCCheck force
 ;XPStyle on
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "kicad-product-${PRODUCT_VERSION}-${OPTION_STRING}.exe"
+
+!ifndef OUTFILE
+  !define OUTFILE "kicad-product-${PRODUCT_VERSION}-${OPTION_STRING}.exe"
+!endif
+OutFile ${OUTFILE}
+
 ;InstallDir "$PROGRAMFILES\KiCad"
 InstallDir "C:\KiCad"
+
 ShowInstDetails show
 ShowUnInstDetails show
 BrandingText "KiCad installer for windows"
