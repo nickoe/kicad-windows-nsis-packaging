@@ -17,7 +17,6 @@
 
 ; General Product Description Definitions
 !define PRODUCT_NAME "KiCad"
-!define PRODUCT_VERSION "2014.03.05"
 !define ALT_DOWNLOAD_WEB_SITE "http://iut-tice.ujf-grenoble.fr/kicad/"
 !define LIBRARIES_WEB_SITE "https://github.com/KiCad/"
 !define KICAD_MAIN_SITE "www.kicad-pcb.org/"
@@ -32,6 +31,15 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define UNINST_ROOT "HKLM"
 
+!define gflag ;Needed to use ifdef and such
+;Define on command line //DPRODUCT_VERSION=42
+!ifndef PRODUCT_VERSION
+  !define PRODUCT_VERSION "unknown"
+!endif
+
+!ifndef OPTION_STRING
+  !define OPTION_STRING "unknown"
+!endif
 
 ;Comment out the following SetCompressor command while testing this script
 ;SetCompressor /final /solid lzma
@@ -39,7 +47,7 @@
 CRCCheck force
 ;XPStyle on
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "${PRODUCT_NAME}_stable-${PRODUCT_VERSION}-BZR4xxx_Win_full_version.exe"
+OutFile "kicad-product-${PRODUCT_VERSION}-${OPTION_STRING}.exe"
 ;InstallDir "$PROGRAMFILES\KiCad"
 InstallDir "C:\KiCad"
 ShowInstDetails show
@@ -282,16 +290,6 @@ Section Uninstall
   DeleteRegKey ${UNINST_ROOT} "${PRODUCT_UNINST_KEY}"
   SetAutoClose true
 SectionEnd
-
-;Setup.exe file version information
-  VIProductVersion "${PRODUCT_VERSION}.01"  ;must be in x.x.x.x format - product version plus last digit for installer version number
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "${PRODUCT_NAME}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "${COMMENTS}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "${COMPANY_NAME}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalTrademarks" "${TRADE_MARKS}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "© ${COPYRIGHT}"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "${PRODUCT_NAME} Installer"
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${PRODUCT_VERSION}"
 
 Function PreventMultiInstances
   System::Call 'kernel32::CreateMutexA(i 0, i 0, t "myMutex") i .r1 ?e'
