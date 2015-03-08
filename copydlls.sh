@@ -39,33 +39,13 @@ decode_pkg() {
 }
 
 extract_pkg() {
-    echo "extract_pkg()"
-    echo arg0 $0
-    echo arg1 $1
-    echo arg2 $2
-    echo arg3 $3
-    echo arg4 $@
-    echo Output will be in $2
-    if [ ! -e $2 ]; then
-        mkdir -p $2
-    fi
-    cd $2
-    echo standing in:
+#    cd $2
+#    echo standing in:
     pwd
     echo ======================
-    if [ ! -e "$2/var" ]; then  # Create dirs if var do not exist
-        mkdir -p $2/var/lib/pacman
-        mkdir -p $2/var/log
-        mkdir -p $2/tmp
-    fi
 
-    echo $MINGWBIN
-    # Such that we only sync system once (sf.net is unstable)
-    if [ ! -e $2/$MINGWBIN ]; then
-        pacman -Syu --root "$2"
-        pacman -S bash --noconfirm --root "$2"
-    fi
-    pacman -U $1 --noconfirm --root $2
+    # Extract the pkg.tar.xz
+    bsdtar xf $1 --strip-components 1 -C $2
 }
 
 
@@ -116,7 +96,6 @@ handle_arch() {
     fi
 }
 
-#PKGDIR="$HOME/MINGW-packages/mingw-w64-kicad-git/pkg/mingw-w64-$ARCH-kicad-git/$MINGWBIN/"
 
 # Temporary dir to store the file structure
 OUTDIR="$HOME/out"
@@ -126,13 +105,6 @@ NSISPATH="$HOME/kicad-windows-nsis-packaging/nsis"
 MAKENSIS="$HOME/NSIS-bin/Bin/makensis.exe"
 
 copystuff() {
-    echo Output will be in $TARGETDIR
-    if [ -e $TARGETDIR ]; then
-        rm -rf $TARGETDIR/*
-    fi
-    mkdir -p $TARGETDIR/bin
-    mkdir -p $TARGETDIR/lib
-    mkdir -p $TARGETDIR/include
     SEARCHLIST=( \
         "*wx*.dll" \
         "*glew*.dll" \
@@ -159,24 +131,24 @@ copystuff() {
         "libintl*.dll" \
         "libpython*.dll" )
 
-    echo Copying kicad binaries and stuff...
-    cp -r $BINDIR/* $TARGETDIR/bin
+    #echo Copying kicad binaries and stuff...
+    #cp -r $MSYSDIR/bin/* $TARGETDIR/bin
 
     echo Copying dll depends...
     for i in ${SEARCHLIST[@]}; do
         echo $i
-        find $BINDIR -name $i | xargs cp -t $TARGETDIR/bin
+        find $MSYSDIR/bin -name $i | xargs cp -t $TARGETDIR/bin
     done
 
     echo Copying include/python2.7...
-    cp -r $BINDIR/../include/python2.7 $TARGETDIR/include
+    cp -r $MSYSDIR/include/python2.7 $TARGETDIR/include
 
     echo Copying lib/python2.7...
-    cp -r "/home/nosterga/out/msys-x86_64/mingw64/lib/python2.7/" "$TARGETDIR/lib/"
+    cp -r "$MSYSDIR/lib/python2.7/" "$TARGETDIR/lib/"
     rm -f $TARGETDIR/lib/python2.7/config/libpython2.7.dll.a # Not really needed
 
     echo Copying python.exe...
-    cp $BINDIR/python.exe $TARGETDIR/bin
+    cp $MSYSDIR/bin/python.exe $TARGETDIR/bin
 
     echo Building NSIS insaller exe...
     cp -r $NSISPATH $TARGETDIR
@@ -205,17 +177,20 @@ if [[ $entry == *"pkg.tar.xz"* ]]; then
     echo $ARCH $ARCH
     
     TARGETDIR="$OUTDIR/pack-$ARCH"
-    MSYSDIR="$OUTDIR/msys-$ARCH"
-    BINDIR="$MSYSDIR/$MINGWBIN/bin"
-    PKGDIR=$TARGETDIR/$ARCH
+    MSYSDIR="/$MINGWBIN"
 
     echo "\$TARGETDIR=$TARGETDIR"
     echo "\$MSYSDIR=$MSYSDIR"
-    echo "\$BINDIR=$BINDIR"
-    echo "\$PKGDIR=$PKGDIR"
     
-    extract_pkg $entry $MSYSDIR
+    echo Output will be in $TARGETDIR
+    if [ -e $TARGETDIR ]; then
+        rm -rf $TARGETDIR/*
+    fi
+    mkdir -p $TARGETDIR/bin
+    mkdir -p $TARGETDIR/lib
+    mkdir -p $TARGETDIR/include
     
+    extract_pkg $entry $TARGETDIR
     copystuff
     makensis
 fi
