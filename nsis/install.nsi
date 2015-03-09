@@ -67,6 +67,9 @@ BrandingText "KiCad installer for windows"
 !define MUI_ABORTWARNING
 !define MUI_ICON "install.ico"
 !define MUI_UNICON "uninstall.ico"
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_BITMAP "kicad-header.bmp" ; optional
+!define MUI_WELCOMEFINISHPAGE_BITMAP "kicad-welcome.bmp"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${UNINST_ROOT}"
