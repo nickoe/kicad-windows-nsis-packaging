@@ -190,8 +190,8 @@ if [[ $entry == *"pkg.tar.xz"* ]]; then
     mkdir -p $TARGETDIR/lib
     mkdir -p $TARGETDIR/include
     
-    extract_pkg $entry $TARGETDIR
     copystuff
+    extract_pkg $entry $TARGETDIR
     makensis
 fi
 done
