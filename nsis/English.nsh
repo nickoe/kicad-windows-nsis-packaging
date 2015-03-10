@@ -3,6 +3,9 @@
 ;File name of license file
 LicenseLangString MUILicense ${LANG_ENGLISH} "..\COPYRIGHT.txt"
 
+;Welcome page
+LangString WELCOME_PAGE_TEXT ${LANG_ENGLISH} "This installer will guide you through the installation of KiCad ${PRODUCT_VERSION}.\r\n\r\nIt is not required to close any other applications before starting the installer, neither is it nessesary to reboot your computer.\r\n\r\nClick Next to continue."
+
 ;Component option
 LangString TITLE_SEC_MAIN ${LANG_ENGLISH} "Main application"
 LangString TITLE_SEC_SCHLIB ${LANG_ENGLISH} "Schematic libraries"
