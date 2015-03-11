@@ -158,14 +158,14 @@ SectionEnd
 
 Section $(TITLE_SEC_SCHLIB) SEC02
   SetOverwrite try
-  SetOutPath "$INSTDIR\share\library"
-  File /nonfatal /r "..\share\library\*"
+  SetOutPath "$INSTDIR\share\kicad\library"
+  File /nonfatal /r "..\share\kicad\library\*"
 SectionEnd
 
 Section $(TITLE_SEC_FPLIB) SEC03
   SetOverwrite try
-  SetOutPath "$INSTDIR\share\modules"
-  File /nonfatal /r "..\share\modules\*"
+  SetOutPath "$INSTDIR\share\kicad\modules"
+  File /nonfatal /r "..\share\kicad\modules\*"
 SectionEnd
 
 Section $(TITLE_SEC_DEMOS) SEC04
