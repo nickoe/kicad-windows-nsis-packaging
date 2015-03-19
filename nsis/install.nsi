@@ -53,8 +53,13 @@ Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 !endif
 OutFile ${OUTFILE}
 
-;InstallDir "$PROGRAMFILES\KiCad"
-InstallDir "C:\KiCad"
+!if ${ARCH} == 'x86_64'
+  InstallDir "$PROGRAMFILES64\KiCad"
+!else
+  InstallDir "$PROGRAMFILES\KiCad"
+!endif
+
+;InstallDir "C:\KiCad"
 
 ShowInstDetails show
 ShowUnInstDetails show

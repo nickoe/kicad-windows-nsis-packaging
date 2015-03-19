@@ -163,6 +163,7 @@ makensis() {
         //DOPTION_STRING="native-mingw-with-scripting-$ARCH" \
         //DPRODUCT_VERSION=$VERSION \
         //DOUTFILE="..\kicad-product-$VERSION-$ARCH.exe" \
+        //DARCH="$ARCH" \
         install.nsi
     cd -
 }
