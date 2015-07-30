@@ -119,12 +119,14 @@ copystuff() {
         "libeay32.dll" \
         "ssleay32.dll" \
         "libpng*.dll" \
+        "libtiff*.dll" \
         "libpixman*.dll" \
         "libfreetype*.dll" \
         "libfontconfig*.dll" \
         "libharfbuzz*.dll" \
         "libexpat*.dll" \
         "libbz2*.dll" \
+        "liblzma*.dll" \
         "libglib*.dll" \
         "libiconv*.dll" \
         "zlib*.dll" \
